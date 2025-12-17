@@ -19,11 +19,14 @@ export default function Login() {
       password,
     });
 
-    if (error) setError(error.message);
-    else navigate("/dashboard");
+    if (error) {
+      setError(error.message);
+    } else {
+      navigate("/dashboard");
+    }
   };
 
-  // SIGNUP (EMAIL + PASSWORD)
+  // SIGNUP
   const handleSignup = async () => {
     setError(null);
 
