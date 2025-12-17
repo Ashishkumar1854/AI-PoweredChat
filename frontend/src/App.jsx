@@ -10,15 +10,26 @@ export default function App() {
 
   return (
     <Routes>
+      {/* ROOT */}
+      <Route
+        path="/"
+        element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
+      />
+
+      {/* LOGIN */}
       <Route
         path="/login"
         element={!user ? <Login /> : <Navigate to="/dashboard" />}
       />
+
+      {/* DASHBOARD */}
       <Route
         path="/dashboard"
         element={user ? <Dashboard /> : <Navigate to="/login" />}
       />
-      <Route path="*" element={<Navigate to="/login" />} />
+
+      {/* FALLBACK */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
