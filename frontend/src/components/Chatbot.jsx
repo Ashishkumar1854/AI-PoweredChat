@@ -1,4 +1,4 @@
-//frontend/src/components/Chatbot.jsx
+// frontend/src/components/Chatbot.jsx
 import { useState } from "react";
 import { supabase } from "../services/supabase";
 
@@ -9,6 +9,10 @@ export default function Chatbot() {
 
   const askAI = async (e) => {
     e.preventDefault();
+
+    // ✅ 1️⃣ Empty question guard
+    if (!question.trim()) return;
+
     setLoading(true);
     setAnswer("");
 
