@@ -3,9 +3,9 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// --------------------
+
 // CORS CONFIG
-// --------------------
+
 const corsHeaders: HeadersInit = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -30,17 +30,17 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // --------------------
+
     // Supabase Client
-    // --------------------
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // --------------------
+
     // AUTH
-    // --------------------
+
     const authHeader = req.headers.get("Authorization");
     const token = authHeader?.replace("Bearer ", "");
 
@@ -55,9 +55,9 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // --------------------
+
     // USER → COMPANY
-    // --------------------
+
     const { data: userRow } = await supabase
       .from("users")
       .select("company_id, companies(name)")
@@ -74,9 +74,9 @@ serve(async (req: Request): Promise<Response> => {
     const loggedCompanyName: string =
       userRow.companies.name.toLowerCase();
 
-    // --------------------
+
     // STEP-1: COMPANY MENTION DETECTION
-    // --------------------
+
     const q = question.toLowerCase();
 
     const knownCompanies = [
@@ -102,9 +102,9 @@ For security reasons, I cannot show data for ${mentionedCompany}.`,
       );
     }
 
-    // --------------------
+
     // STEP-2: INTENT (STATUS)
-    // --------------------
+
     let statusFilter: string | null = null;
 
     if (q.includes("pending")) statusFilter = "pending";
@@ -112,9 +112,9 @@ For security reasons, I cannot show data for ${mentionedCompany}.`,
     else if (q.includes("done") || q.includes("completed"))
       statusFilter = "done";
 
-    // --------------------
+
     // STEP-3: SMART QUERY
-    // --------------------
+
     let taskQuery = supabase
       .from("tasks")
       .select("title, status")
@@ -126,9 +126,9 @@ For security reasons, I cannot show data for ${mentionedCompany}.`,
 
     const { data: tasks } = await taskQuery;
 
-    // --------------------
+
     // STEP-4: RESPONSE (AI-STYLE)
-    // --------------------
+
     const taskText =
       tasks && tasks.length > 0
         ? tasks.map((t) => `• ${t.title} (${t.status})`).join("\n")

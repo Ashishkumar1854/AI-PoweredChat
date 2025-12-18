@@ -18,7 +18,7 @@ multi-company-chatbot/
 │ ├── pages/
 │ │ ├── Login.jsx
 │ │ ├── Dashboard.jsx
-│ │ └── Tasks.jsx
+│ │
 │ │
 │ └── components/
 │ └── Navbar.jsx
