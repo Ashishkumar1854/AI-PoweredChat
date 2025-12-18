@@ -23,13 +23,6 @@ multi-company-chatbot/
 │ └── components/
 │ └── Navbar.jsx
 │
-├── backend/ # Node + Express (later)
-│ ├── .env
-│ ├── server.js
-│ └── routes/
-│
-├── ai/ # AI / LLM (later)
-│ ├── agent.js
-│ └── prompts/
+├
 │
 └── README.md
