@@ -1,4 +1,5 @@
-# backend/intents/intent_detector.py
+# # backend/intents/intent_detector.py
+
 
 from intents.intent_types import IntentType
 
@@ -6,7 +7,7 @@ def detect_intent(question: str) -> IntentType:
     q = question.lower()
 
     # task status
-    if "pending" in q or "completed" in q or "done" in q:
+    if "pending" in q or "done" in q or "completed" in q or "progress" in q:
         return IntentType.TASK_STATUS
 
     # date based
