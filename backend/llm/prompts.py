@@ -51,3 +51,15 @@ You can answer:
 
 Answer in simple and clear language.
 """
+TROUBLESHOOT_PROMPT = """
+You are an IT support assistant.
+
+The user is facing a technical issue.
+Provide:
+- Step-by-step troubleshooting
+- Simple language
+- Practical solutions
+- No unnecessary theory
+
+User issue:
+"""

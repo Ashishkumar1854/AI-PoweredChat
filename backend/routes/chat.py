@@ -1,7 +1,5 @@
 # #backend/routes/chat.py
 
-
-
 from fastapi import APIRouter, Header, HTTPException
 from supabase import create_client
 from config import SUPABASE_URL, SUPABASE_ANON_KEY
@@ -13,7 +11,7 @@ from services.task_service import (
 from intents.intent_detector import detect_intent
 from intents.intent_types import IntentType
 from llm.llm_client import ask_llm
-from llm.prompts import GENERAL_PROMPT
+from llm.prompts import GENERAL_PROMPT, TROUBLESHOOT_PROMPT
 
 router = APIRouter()
 supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
@@ -63,7 +61,7 @@ def chat(payload: dict, authorization: str = Header(None)):
             "answer": f"Here are your {status.replace('_',' ')} tasks:\n{task_lines}"
         }
 
-    # ================= TASK DATE (NEW) =================
+    # ================= TASK DATE =================
     if intent == IntentType.TASK_DATE:
         when = "today" if "today" in question else "yesterday"
 
@@ -79,6 +77,21 @@ def chat(payload: dict, authorization: str = Header(None)):
         return {
             "answer": f"Here are your tasks for {when}:\n{task_lines}"
         }
+
+    # ================= TROUBLESHOOT (NEW) =================
+    if intent == IntentType.TROUBLESHOOT:
+        try:
+            return {"answer": ask_llm(TROUBLESHOOT_PROMPT, question)}
+        except Exception:
+            return {
+                "answer": (
+                    "I’m unable to access AI support right now.\n"
+                    "Please try:\n"
+                    "- Restart the application\n"
+                    "- Check your internet connection\n"
+                    "- Try logging out and logging in again"
+                )
+            }
 
     # ================= NON-TASK =================
     try:
