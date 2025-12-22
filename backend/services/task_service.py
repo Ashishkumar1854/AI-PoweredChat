@@ -5,7 +5,7 @@
 from datetime import datetime, timedelta, timezone
 from services.supabase_service import get_tasks_by_company
 
-# ================= STATUS BASED (OLD - KEEP AS IS) =================
+# STATUS BASED 
 
 def normalize_status(value: str | None):
     if not value:
@@ -34,7 +34,7 @@ def filter_tasks_by_status(company_id: str, status: str | None = None):
     return tasks
 
 
-# ================= DATE BASED (NEW) =================
+#  DATE BASED 
 
 def filter_tasks_by_date(company_id: str, when: str):
     tasks = get_tasks_by_company(company_id)

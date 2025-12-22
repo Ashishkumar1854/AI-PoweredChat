@@ -61,7 +61,7 @@ def chat(payload: dict, authorization: str = Header(None)):
             "answer": f"Here are your {status.replace('_',' ')} tasks:\n{task_lines}"
         }
 
-    # ================= TASK DATE =================
+    #  TASK DATE
     if intent == IntentType.TASK_DATE:
         when = "today" if "today" in question else "yesterday"
 
