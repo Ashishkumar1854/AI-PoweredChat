@@ -68,7 +68,7 @@ export default function Dashboard() {
     window.location.href = "/login";
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading....</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
